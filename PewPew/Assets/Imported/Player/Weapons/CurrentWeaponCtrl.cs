@@ -11,7 +11,7 @@ public class CurrentWeaponCtrl : MonoBehaviour
     //временно статы оружия задаются через инспектор
     //отдача
     [SerializeField] private float RateOfFire = 0.5f; //темп стрельбы
-    //[SerializeField] private float Damage =1;
+    [SerializeField] private float Damage =1;
     [SerializeField] private float RecoilDuration = 0.08f; //длительность отдачи 
     [SerializeField] private float VerticalRecoil = 0.1f; //сила вертикальной отдачи
     [SerializeField] private float HorizontalRecoil = 0.02f; //сила горизонтальной отдачи
@@ -24,7 +24,7 @@ public class CurrentWeaponCtrl : MonoBehaviour
 
     //зависимости
     [SerializeField] private AudioClip ShotSound = null;
-    //[SerializeField] private AudioClip ReloadSound = null;
+    [SerializeField] private AudioClip ReloadSound = null;
     [SerializeField] private GameObject bulletPrefab = null;
     [SerializeField] private Vector3 bulletSpawnOffset;
     [SerializeField] private GunFlash gunFlash = null;

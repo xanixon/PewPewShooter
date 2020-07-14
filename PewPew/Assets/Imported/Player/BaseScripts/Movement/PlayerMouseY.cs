@@ -8,7 +8,7 @@ public class PlayerMouseY : MonoBehaviour
     [SerializeField] private bool InvertY = false;
     [SerializeField] private float MinAngle=-75 ,MaxAngle=75; //ограничение в повороте головы, чтобы не вертеть головой вверх-вниз на 360 градусов
     [Range(1,30)]
-    //[SerializeField] private float Smoothness = 20; //плавность камеры 
+    [SerializeField] private float Smoothness = 20; //плавность камеры 
 
     private Quaternion oldQuaternion;
     private float yDirection;
