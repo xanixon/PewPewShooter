@@ -601,12 +601,12 @@ GameObject:
   - component: {fileID: 8041128554855637765}
   - component: {fileID: 8041128555103865783}
   - component: {fileID: 8041128555103865770}
-  - component: {fileID: 8041128554865021078}
+  - component: {fileID: 6008121593401451360}
   - component: {fileID: 3301797181095735767}
   - component: {fileID: 7061500146254534524}
   - component: {fileID: 1122812956195266072}
   m_Layer: 0
-  m_Name: Titan 1
+  m_Name: Titan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -684,7 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
---- !u!114 &8041128554865021078
+--- !u!114 &6008121593401451360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -693,7 +693,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8041128554865021079}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d961ffea15c74f74186e1de78bd42cac, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d9d5895fcbabe74da5dfab60cd637dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &3301797181095735767
@@ -874,7 +874,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bar: {fileID: 1122812955728956616}
-  fill: 0
 --- !u!1 &8041128554865021081
 GameObject:
   m_ObjectHideFlags: 0

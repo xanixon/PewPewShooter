@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CharacterAnim : MonoBehaviour {
+public class EnemyAnim : MonoBehaviour {
 
     protected Animator animator;
     protected NavMeshAgent navMeshAgent;
@@ -13,7 +13,6 @@ public class CharacterAnim : MonoBehaviour {
     protected virtual void Start() {
         animator = gameObject.GetComponent<Animator>();
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
-        animator.SetInteger("numPreventionRoar", 3);
     }
 
     protected virtual void Update() {
@@ -21,11 +20,7 @@ public class CharacterAnim : MonoBehaviour {
         animator.SetFloat("SpeedPercent", speedPercent, 0.1f, Time.deltaTime);
     }
 
-    protected virtual void Attack(int num) {
-        animator.SetInteger("attack", Random.Range(1, num + 1));
-    }
-
-    protected void StopAttack() {
-        animator.SetInteger("attack", 0);
+    public virtual void Attack() {
+        animator.SetTrigger("attack");
     }
 }

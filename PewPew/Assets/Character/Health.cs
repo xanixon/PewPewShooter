@@ -7,7 +7,7 @@ public class Health : MonoBehaviour {
     private float maxHealth = 10f;
     private bool isDead;
 
-    public HealthBar healthBar; 
+    protected HealthBar healthBar; 
 
     private void Start() {
         currentHealth = maxHealth;
