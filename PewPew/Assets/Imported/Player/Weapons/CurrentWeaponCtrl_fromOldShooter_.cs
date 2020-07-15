@@ -6,7 +6,7 @@ using UnityEngine;
 /// Управление стрельбой их выбранного оружия.
 /// TODO: отдачу нужно переделать
 /// </summary>
-public class CurrentWeaponCtrl : MonoBehaviour
+public class CurrentWeaponCtrl_fromOldShooter_ : MonoBehaviour
 {
     //временно статы оружия задаются через инспектор
     //отдача

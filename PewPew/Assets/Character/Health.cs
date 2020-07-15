@@ -14,6 +14,10 @@ public class Health : MonoBehaviour {
         healthBar = gameObject.GetComponent<HealthBar>();
     }
 
+    private void Update() {
+        TakeDamage(0.1f);
+    }
+
     public void TakeDamage(float damage) {
         currentHealth -= damage;
         healthBar.ChangeBar(currentHealth / maxHealth);
@@ -29,6 +33,9 @@ public class Health : MonoBehaviour {
     }
 
     protected virtual void Die() {
-        Destroy(gameObject);
+        if (!isDead) {
+            gameObject.GetComponent<Animator>().SetTrigger("Death");
+            isDead = true;
+        }
     }
 }
