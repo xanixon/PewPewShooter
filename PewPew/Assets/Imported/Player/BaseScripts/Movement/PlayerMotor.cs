@@ -75,7 +75,6 @@ public class PlayerMotor : MonoBehaviour
                 }
             }
             
-
             Vector3 forwardSpeed = transform.forward * CurrentForwardSpeed * Input.GetAxis("Vertical");
 
             if (Input.GetAxis("Vertical") != 0)

@@ -14,10 +14,6 @@ public class Health : MonoBehaviour {
         healthBar = gameObject.GetComponent<HealthBar>();
     }
 
-    private void Update() {
-        TakeDamage(0.1f);
-    }
-
     public void TakeDamage(float damage) {
         currentHealth -= damage;
         healthBar.ChangeBar(currentHealth / maxHealth);

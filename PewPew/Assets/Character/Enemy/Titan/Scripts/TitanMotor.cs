@@ -46,7 +46,6 @@ public class TitanMotor: EnemyMotor {
 
         else if (distance >= noticedRadius && !isCalm) 
             BecomeCalm();
-        
     }
 
     protected override void Attack() {

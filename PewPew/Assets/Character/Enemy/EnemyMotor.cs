@@ -7,7 +7,6 @@ public abstract class EnemyMotor : MonoBehaviour{
     protected NavMeshAgent navMeshAgent;
     protected Animator animator;
     protected bool isCalm = true;
-    protected bool isDead = false;
     protected float distance;
 
     public Transform target;
