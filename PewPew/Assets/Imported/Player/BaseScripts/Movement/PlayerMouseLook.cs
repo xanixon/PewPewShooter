@@ -16,9 +16,6 @@ public class PlayerMouseLook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     
-
-
         if (InvertX)
             xDirection = 1;
         else
@@ -32,7 +29,6 @@ public class PlayerMouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         float x, y;
 
         x = Input.GetAxis("Mouse X") * yDirection * XSensivity;

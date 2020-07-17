@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMotor : MonoBehaviour
@@ -20,6 +21,7 @@ public class PlayerMotor : MonoBehaviour
 
     public bool isADS = false;
     public bool isSprint = false;
+    public bool isDead = false;
 
     //временная херня! по хорошему нужно поместить это 
     //в отедльный объект и выбирать нужный лист с звуками шагов исходя их поверхности под ногами
@@ -30,21 +32,26 @@ public class PlayerMotor : MonoBehaviour
     private float CurrentStrafeSpeed = 0;
     private float jumpInitialSpeed; //рассчетная скорость вначале прыжка
     private Rigidbody myRb;
+
+    private PlayerAnim playerAnim;
+
     // Start is called before the first frame update
     void Start()
     {
         myRb = GetComponent<Rigidbody>();
         jumpInitialSpeed = Mathf.Sqrt(2*playerJumpHeight * Physics.gravity.magnitude);
 
+        playerAnim = gameObject.GetComponent<PlayerAnim>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        MovementCtrl();
+        if (!isDead) {
+            MovementCtrl();
 
-      
-        JumpCtrl();
+            JumpCtrl();
+        }
     }
     void MovementCtrl()
     {
@@ -76,7 +83,7 @@ public class PlayerMotor : MonoBehaviour
             }
             
             Vector3 forwardSpeed = transform.forward * CurrentForwardSpeed * Input.GetAxis("Vertical");
-
+            
             if (Input.GetAxis("Vertical") != 0)
                 CurrentForwardSpeed += Acceleration * Time.deltaTime; //увеличиваем соответсвующую скорость
             else //если юзер не трогал WS - тормозим его по forward
@@ -99,15 +106,12 @@ public class PlayerMotor : MonoBehaviour
                 CurrentForwardSpeed = Mathf.Clamp(CurrentForwardSpeed, 0, WalkSpeed*ADSSpeedMultiplier);
             }
     
-
-            
             Vector3 strafeSpeed = transform.right * CurrentStrafeSpeed * Input.GetAxis("Horizontal");
 
             if(Input.GetAxis("Horizontal") != 0)
                 CurrentStrafeSpeed += Acceleration * Time.deltaTime; //увеличиваем соответсвующую скорость
             else//если юзер не трогал AD - тормозим его по strafe
             {
-
                 CurrentStrafeSpeed -= Acceleration * Time.deltaTime;
                 CurrentStrafeSpeed = Mathf.Clamp(CurrentStrafeSpeed, 0, WalkSpeed * SprintSpeedMultiplier * StrafeSpeedMultiplier);
             }
@@ -126,6 +130,7 @@ public class PlayerMotor : MonoBehaviour
             Vector3 verticalSpeed = new Vector3(0, myRb.velocity.y, 0); //скорость прыжка/падения
                 myRb.velocity = forwardSpeed + strafeSpeed + verticalSpeed; 
         }
+
         else //если юзер не трогает WASD - Останавливаем его (убирать этот кусок нельзя!)
         {
             CurrentStrafeSpeed -= Acceleration * Time.deltaTime;
@@ -136,7 +141,9 @@ public class PlayerMotor : MonoBehaviour
 
         }
         overallSpeed = myRb.velocity.magnitude;
- 
+
+
+        playerAnim.Move(CurrentForwardSpeed * Input.GetAxis("Vertical"), CurrentStrafeSpeed * Input.GetAxis("Horizontal"));
     }
 
     void JumpCtrl()
@@ -147,10 +154,18 @@ public class PlayerMotor : MonoBehaviour
             {
                 myRb.velocity += transform.up * jumpInitialSpeed;
             }
-          
         }
     }
 
+    private void Dying() {
+        Debug.Log("restart");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void StartDying() {
+        gameObject.GetComponent<PlayerMouseLookX>().enabled = false;
+        gameObject.GetComponentInChildren<PlayerMouseY>().enabled = false;
+    }
 }
 
 

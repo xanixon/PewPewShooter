@@ -9,8 +9,13 @@ public class RayCastWeaponCtrl : MonoBehaviour {
     [SerializeField] private Transform cam = null;
     [SerializeField] private AudioSource audioSource = null;
     [SerializeField] private AudioClip shootSound = null;
+    private PlayerAnim anim;
 
     private RaycastHit hit;
+
+    private void Start() {
+        anim = gameObject.transform.root.GetComponent<PlayerAnim>();
+    }
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -19,7 +24,11 @@ public class RayCastWeaponCtrl : MonoBehaviour {
 
     private void Shoot() {
         audioSource.PlayOneShot(shootSound);
-        if (Physics.Raycast(cam.position, cam.forward, out hit, range))
-            hit.collider.gameObject.GetComponent<Health>().TakeDamage(damage);
+        anim.Shoot();
+        if (Physics.Raycast(cam.position, cam.forward, out hit, range)) {
+            if (!hit.collider.isTrigger) {
+                hit.collider.gameObject.GetComponent<Health>().TakeDamage(damage);
+            }
+        }
     }
 }

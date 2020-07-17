@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent (typeof(HealthBar))]
 public class Health : MonoBehaviour {
     private float currentHealth;
     private float maxHealth = 10f;
     private bool isDead;
+    public bool tempCruth = false;
 
     protected HealthBar healthBar; 
 
@@ -15,6 +17,7 @@ public class Health : MonoBehaviour {
     }
 
     public void TakeDamage(float damage) {
+        tempCruth = true;
         currentHealth -= damage;
         healthBar.ChangeBar(currentHealth / maxHealth);
         if (currentHealth <= 0) {

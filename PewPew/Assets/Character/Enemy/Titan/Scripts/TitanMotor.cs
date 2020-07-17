@@ -48,6 +48,16 @@ public class TitanMotor: EnemyMotor {
             BecomeCalm();
     }
 
+    protected override void InjuredBehavior() {
+        distance = (target.position - transform.position).sqrMagnitude;
+        navMeshAgent.SetDestination(target.position);
+
+        if (distance <= navMeshAgent.stoppingDistance * navMeshAgent.stoppingDistance) {
+            Turnover();
+            Attack();
+        }
+    }
+
     protected override void Attack() {
         titanAnim.Attack(numberAttacs);
         //+ что-нибудь ещё
