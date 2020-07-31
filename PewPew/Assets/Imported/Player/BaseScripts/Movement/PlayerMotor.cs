@@ -34,6 +34,7 @@ public class PlayerMotor : MonoBehaviour
     private Rigidbody myRb;
 
     private PlayerAnim playerAnim;
+    [SerializeField] RayCastWeaponCtrl gun = null;
 
     // Start is called before the first frame update
     void Start()
@@ -157,8 +158,11 @@ public class PlayerMotor : MonoBehaviour
         }
     }
 
+    public void TakeAmmo(int totalAmmo) {
+        gun.TakeAmmo(totalAmmo);
+    }
+
     private void Dying() {
-        Debug.Log("restart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

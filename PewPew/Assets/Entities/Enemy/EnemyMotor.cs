@@ -9,23 +9,29 @@ public abstract class EnemyMotor : MonoBehaviour{
     protected bool isCalm = true;
     private bool isShotDown = false;
     protected float distance;
+    protected Transform target;
 
     private Health health;      //избавится от этого
-
-    public Transform target;
 
     protected virtual void Start() {
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         animator = gameObject.GetComponent<Animator>();
         health = gameObject.GetComponent<Health>();
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        StartCoroutine(EnvironmentCheck());
     }
 
-    protected void Update() {
-        isShotDown = health.tempCruth;
-        if (!isShotDown)
-            BehaviorChoices();
-        else
-            InjuredBehavior();
+    protected IEnumerator EnvironmentCheck() {
+        while (true) {
+            isShotDown = health.tempCruth;
+            distance = (target.position - transform.position).sqrMagnitude;
+
+            if (!isShotDown)
+                BehaviorChoices();
+            else
+                InjuredBehavior();
+            yield return null;
+        }
     }
 
     protected abstract void BehaviorChoices();

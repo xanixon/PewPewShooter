@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class TitanMotor: EnemyMotor {
     private float noticedRadius = 40f;      //
     private float agrRadius = 20f;          //
-    private float attackRadius = 3f;        //
+    private float attackRadius = 2.5f;        //
     private float turnSpeed = 2f;           //
     private int numPrevention = 3;          //
     private int numberAttacs = 3;           //
@@ -28,7 +28,7 @@ public class TitanMotor: EnemyMotor {
 
     // Я так понял это не стоит делат в Апдейте, но не придумал ничего лучше, да и вообще, не уверен, что стоит разделять управление анимацией и действием на 2 скрипта.
     protected override void BehaviorChoices() {
-        distance = (target.position - transform.position).sqrMagnitude;
+        
 
         if (distance <= noticedRadius) {
             if (isCalm)
@@ -49,7 +49,6 @@ public class TitanMotor: EnemyMotor {
     }
 
     protected override void InjuredBehavior() {
-        distance = (target.position - transform.position).sqrMagnitude;
         navMeshAgent.SetDestination(target.position);
 
         if (distance <= navMeshAgent.stoppingDistance * navMeshAgent.stoppingDistance) {

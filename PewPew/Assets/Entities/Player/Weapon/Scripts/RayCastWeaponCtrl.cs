@@ -5,6 +5,7 @@ using UnityEngine;
 public class RayCastWeaponCtrl : MonoBehaviour {
     private float damage = 1f;
     private float range = 100f;
+    private WeaponAmmunition ammo;  //боезапас
 
     [SerializeField] private Transform cam = null;
     [SerializeField] private AudioSource audioSource = null;
@@ -15,20 +16,42 @@ public class RayCastWeaponCtrl : MonoBehaviour {
 
     private void Start() {
         anim = gameObject.transform.root.GetComponent<PlayerAnim>();
+        ammo = new WeaponAmmunition(12, 5);
+        StartCoroutine(WeaponUpdate());
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-            Shoot();
+    private IEnumerator WeaponUpdate() {
+        while (true) {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+                if (!ammo.isEmpty()) {
+                    Shoot();
+                }
+
+            if (Input.GetKeyDown(KeyCode.R)) {
+                Reload();
+                yield return new WaitForSeconds(3f);
+            }
+            yield return null;
+        }
     }
 
-    private void Shoot() {
+    protected virtual void Shoot() {
         audioSource.PlayOneShot(shootSound);
         anim.Shoot();
+        ammo.SpendAmmo();
         if (Physics.Raycast(cam.position, cam.forward, out hit, range)) {
             if (!hit.collider.isTrigger) {
                 hit.collider.gameObject.GetComponent<Health>().TakeDamage(damage);
             }
         }
+    }
+
+    private void Reload() {
+        anim.Reload();
+        ammo.Reload();
+    }
+
+    public void TakeAmmo(int totalAmmo) {
+        ammo.TakeAmmo(totalAmmo);
     }
 }
